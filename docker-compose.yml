@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: nudgelearn-postgres
+    environment:
+      POSTGRES_DB: nudgelearn
+      POSTGRES_USER: nudgelearn
+      POSTGRES_PASSWORD: nudgelearn
+    ports:
+      - "5432:5432"
+    volumes:
+      - nudgelearn_pgdata:/var/lib/postgresql/data
+
+volumes:
+  nudgelearn_pgdata:
