@@ -28,11 +28,15 @@ public class TopicService {
 
 	@Transactional(readOnly = true)
 	public TopicResponse getTopic(Long id) {
+		return toResponse(requireOwnedTopic(id));
+	}
+
+	@Transactional(readOnly = true)
+	public Topic requireOwnedTopic(Long id) {
 		AppUser user = appUserService.requireDefaultUser();
-		Topic topic = topicRepository
+		return topicRepository
 				.findByIdAndUser(id, user)
 				.orElseThrow(() -> new ResourceNotFoundException("Tema no encontrado: " + id));
-		return toResponse(topic);
 	}
 
 	@Transactional

@@ -1,7 +1,9 @@
 package com.nudgeLearn.demo.controller;
 
+import com.nudgeLearn.demo.dto.QuizResponse;
 import com.nudgeLearn.demo.dto.TopicRequest;
 import com.nudgeLearn.demo.dto.TopicResponse;
+import com.nudgeLearn.demo.service.QuizService;
 import com.nudgeLearn.demo.service.TopicService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TopicController {
 
 	private final TopicService topicService;
+	private final QuizService quizService;
 
 	@GetMapping
 	public List<TopicResponse> list() {
@@ -35,5 +38,11 @@ public class TopicController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public TopicResponse create(@RequestBody TopicRequest request) {
 		return topicService.createTopic(request);
+	}
+
+	@PostMapping("/{id}/quizzes")
+	@ResponseStatus(HttpStatus.CREATED)
+	public QuizResponse createQuiz(@PathVariable Long id) {
+		return quizService.createQuiz(id);
 	}
 }
